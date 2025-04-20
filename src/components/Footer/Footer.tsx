@@ -17,7 +17,7 @@ const Footer = () => {
         <p className="mb-0">
           🌐{" "}
           <a
-            href="https://github.com/faryd257"
+            href="https://github.com/faryd257/biblioteca-virtual"
             target="_blank"
             rel="noopener noreferrer"
             className="footer-link"
@@ -26,7 +26,7 @@ const Footer = () => {
           </a>{" "}
           |{" "}
           <a
-            href="https://linkedin.com/in/faryd-ortiz"
+            href="https://www.linkedin.com/in/faryd-ignacio-ortiz"
             target="_blank"
             rel="noopener noreferrer"
             className="footer-link"
