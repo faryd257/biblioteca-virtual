@@ -1,0 +1,18 @@
+.custom-footer {
+    background: #343a40; /* gris oscuro elegante */
+    color: #f8f9fa;
+    font-size: 0.95rem;
+    border-top: 4px solid #28a745; /* verde vibrante */
+  }
+  
+  .footer-link {
+    color: #28a745;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .footer-link:hover {
+    color: #f8f9fa;
+    text-decoration: underline;
+  }
+  

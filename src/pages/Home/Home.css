@@ -1,0 +1,52 @@
+/* Home.css */
+
+/* Fondo general suave */
+body {
+    background-color: #f0f2f5;
+  }
+  
+  /* Estilo de tarjeta de libro */
+  .book-card {
+    background: #2c3e50; /* gris azulado oscuro */
+    border-left: 6px solid #27ae60; /* verde suave */
+    border-radius: 10px;
+    color: #ecf0f1; /* texto claro */
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Efecto al pasar el mouse */
+  .book-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Título del libro */
+  .book-title {
+    color: #1abc9c; /* verde agua */
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+  }
+  
+  /* Textos generales */
+  .book-card p {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+  
+  /* Resaltar campos con íconos opcionales */
+  .book-card strong {
+    color: #f1c40f; /* amarillo suave */
+  }
+  .book-card button {
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  
+  .book-card button:hover {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  /* Responsive (ya está bien con Bootstrap grid) */
+  

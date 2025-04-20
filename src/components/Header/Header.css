@@ -1,0 +1,35 @@
+.main-header {
+    background-color: #1f2937; /* Gris oscuro */
+    color: #fff;
+    width: 100%;
+    padding: 12px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .logo {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 8px;
+  }
+  
+  .user-email {
+    color: #f0f0f0;
+    font-size: 0.9rem;
+  }
+  
