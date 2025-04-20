@@ -1,23 +1,21 @@
+// src/firebase/FirebaseConfig.ts
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage"; // si vas a usar archivos
 
-// 🔥 Tu nueva configuración generada por Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyA4A_-bevl7hrx2U23nxV1E0XDYgGnVP4k",
-  authDomain: "biblioteca-virtual-57473.firebaseapp.com",
-  projectId: "biblioteca-virtual-57473",
-  storageBucket: "biblioteca-virtual-57473.firebasestorage.app", // ⚠️ este dominio está MAL escrito
-  messagingSenderId: "457696878584",
-  appId: "1:457696878584:web:a17502e82b151ccc55800d",
-  measurementId: "G-HNYF314XW1",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
-
-// ✅ Corregí el dominio de storage:
-firebaseConfig.storageBucket = "biblioteca-virtual-57473.appspot.com";
 
 const app = initializeApp(firebaseConfig);
 
-// Exportá auth y firestore para usar en tu app
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const storage = getStorage(app); // si lo usás
