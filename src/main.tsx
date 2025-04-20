@@ -7,14 +7,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 
-import { BrowserRouter } from "react-router-dom"; // ← IMPORTANTE
+import { BrowserRouter } from "react-router-dom";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
       <BrowserRouter>
         {" "}
-        {/* ← ENVOLVER LA APP */}
         <App />
       </BrowserRouter>
     </Provider>

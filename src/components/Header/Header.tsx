@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { clearUser } from "../../redux/userSlice";
 import { signOut } from "firebase/auth";
-import "./Header.css"; // Archivo de estilos
+import "./Header.css";
 
 const Header = () => {
   const navigate = useNavigate();

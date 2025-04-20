@@ -1,9 +1,9 @@
 .main-background {
-    background-color: #e8f0f8; /* color claro azulado */
+    background-color: #e8f0f8;
    
   }
   
-  /* Asegurarse de que la estructura use toda la altura */
+ 
   .layout-wrapper {
     display: flex;
     flex-direction: column;

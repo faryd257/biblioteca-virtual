@@ -37,7 +37,7 @@ function Register() {
         })
       );
 
-      navigate("/"); // Redirige al home después del registro
+      navigate("/");
     } catch (error: any) {
       setError(error.message);
     }
