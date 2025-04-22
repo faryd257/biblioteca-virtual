@@ -25,7 +25,7 @@ const Header = () => {
     <header className="main-header">
       <div className="container header-content">
         <Link to="/" className="logo">
-          Mi Biblioteca Virtual
+          Bienvenido a Mi Biblioteca Virtual
         </Link>
 
         <nav className="nav-actions">
