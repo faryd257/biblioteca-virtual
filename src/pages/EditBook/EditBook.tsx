@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase/FirebaseConfig";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db, storage } from "../../firebase/FirebaseConfig";
 
 const EditBook = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [archivoNuevo, setArchivoNuevo] = useState<File | null>(null);
   const [formData, setFormData] = useState({
     titulo: "",
     autor: "",
@@ -14,6 +16,7 @@ const EditBook = () => {
     estado: "pendiente",
     nota: "",
     calificacion: "",
+    archivoURL: "",
   });
 
   useEffect(() => {
@@ -31,6 +34,7 @@ const EditBook = () => {
           estado: data.estado || "pendiente",
           nota: data.nota || "",
           calificacion: data.calificacion?.toString() || "",
+          archivoURL: data.archivoURL || "",
         });
       }
 
@@ -52,12 +56,24 @@ const EditBook = () => {
     e.preventDefault();
     if (!id) return;
 
+    let archivoFinalURL = formData.archivoURL;
+
+    if (archivoNuevo) {
+      const archivoRef = ref(
+        storage,
+        `libros/${Date.now()}-${archivoNuevo.name}`
+      );
+      await uploadBytes(archivoRef, archivoNuevo);
+      archivoFinalURL = await getDownloadURL(archivoRef);
+    }
+
     const docRef = doc(db, "libros", id);
     const libroActualizado = {
       ...formData,
       calificacion: formData.calificacion
         ? parseFloat(formData.calificacion)
         : null,
+      archivoURL: archivoFinalURL,
     };
 
     try {
@@ -128,6 +144,36 @@ const EditBook = () => {
           max={10}
           step={0.1}
         />
+
+        {formData.archivoURL && (
+          <div className="mb-3">
+            {formData.archivoURL.endsWith(".pdf") ? (
+              <a
+                href={formData.archivoURL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline-secondary btn-sm"
+              >
+                📄 Ver PDF actual
+              </a>
+            ) : (
+              <img
+                src={formData.archivoURL}
+                alt="Portada actual"
+                className="img-fluid rounded"
+                style={{ maxHeight: "200px", objectFit: "cover" }}
+              />
+            )}
+          </div>
+        )}
+
+        <input
+          type="file"
+          accept=".jpg,.jpeg,.png,.pdf"
+          className="form-control mb-3"
+          onChange={(e) => setArchivoNuevo(e.target.files?.[0] || null)}
+        />
+
         <button className="btn btn-primary w-100 mt-2" type="submit">
           Guardar cambios
         </button>

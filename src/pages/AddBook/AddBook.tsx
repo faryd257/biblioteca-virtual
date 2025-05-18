@@ -1,9 +1,18 @@
 import { useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../firebase/FirebaseConfig";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db, storage } from "../../firebase/FirebaseConfig";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
+
+// ✅ Función reutilizable para subir un archivo
+const subirArchivo = async (archivo: File): Promise<string> => {
+  const archivoRef = ref(storage, `libros/${Date.now()}-${archivo.name}`);
+  await uploadBytes(archivoRef, archivo);
+  const url = await getDownloadURL(archivoRef);
+  return url;
+};
 
 const AddBook = () => {
   const user = useSelector((state: RootState) => state.user.user);
@@ -18,6 +27,8 @@ const AddBook = () => {
     calificacion: "",
   });
 
+  const [archivo, setArchivo] = useState<File | null>(null);
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -30,20 +41,26 @@ const AddBook = () => {
     e.preventDefault();
     if (!user) return;
 
-    const libro = {
-      titulo: formData.titulo,
-      autor: formData.autor,
-      genero: formData.genero,
-      estado: formData.estado,
-      nota: formData.nota,
-      ...(formData.calificacion
-        ? { calificacion: parseFloat(formData.calificacion) }
-        : {}),
-      uid: user.uid,
-      creadoEn: new Date(),
-    };
-
     try {
+      let archivoURL = "";
+      if (archivo) {
+        archivoURL = await subirArchivo(archivo);
+      }
+
+      const libro = {
+        titulo: formData.titulo,
+        autor: formData.autor,
+        genero: formData.genero,
+        estado: formData.estado,
+        nota: formData.nota,
+        ...(formData.calificacion
+          ? { calificacion: parseFloat(formData.calificacion) }
+          : {}),
+        archivoURL,
+        uid: user.uid,
+        creadoEn: new Date(),
+      };
+
       await addDoc(collection(db, "libros"), libro);
       navigate("/");
     } catch (error) {
@@ -112,6 +129,13 @@ const AddBook = () => {
               max={10}
               step={0.1}
             />
+            <input
+              type="file"
+              accept=".jpg,.jpeg,.png,.pdf"
+              className="form-control my-2"
+              onChange={(e) => setArchivo(e.target.files?.[0] || null)}
+            />
+
             <button type="submit" className="btn btn-success w-100 mt-3">
               Guardar libro
             </button>

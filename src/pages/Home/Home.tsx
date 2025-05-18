@@ -22,6 +22,7 @@ interface Libro {
   nota?: string;
   calificacion?: number;
   creadoEn?: any;
+  archivoURL?: string;
 }
 
 const LIBROS_POR_PAGINA = 6;
@@ -212,6 +213,27 @@ const Home = () => {
                   <p>
                     <strong>Calificación:</strong> ⭐ {libro.calificacion}/10
                   </p>
+                )}
+                {libro.archivoURL && (
+                  <div className="mt-2">
+                    {libro.archivoURL.endsWith(".pdf") ? (
+                      <a
+                        href={libro.archivoURL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-outline-secondary btn-sm"
+                      >
+                        📄 Ver PDF
+                      </a>
+                    ) : (
+                      <img
+                        src={libro.archivoURL}
+                        alt="Portada"
+                        className="img-fluid rounded"
+                        style={{ maxHeight: "200px", objectFit: "cover" }}
+                      />
+                    )}
+                  </div>
                 )}
               </div>
               <div className="mt-3 d-flex justify-content-between">
