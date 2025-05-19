@@ -6,7 +6,7 @@ import { AddBook } from "../pages/AddBook/AddBook";
 import { EditBook } from "../pages/EditBook/EditBook";
 import { Layout } from "./Layout";
 import { PrivateRoute } from "./PrivateRoute";
-import { TestCORS } from "../pages/TestCORS"; // ✅ agregado
+import { TestCORS } from "../components/TestCORS"; // ✅ agregado
 
 const AppRouter = () => {
   return (
