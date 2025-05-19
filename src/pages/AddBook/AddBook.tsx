@@ -9,8 +9,10 @@ import { useNavigate } from "react-router-dom";
 // ✅ Función reutilizable para subir un archivo
 const subirArchivo = async (archivo: File): Promise<string> => {
   const archivoRef = ref(storage, `libros/${Date.now()}-${archivo.name}`);
+  console.log("📤 Subiendo archivo a:", archivoRef.fullPath); // Debug
   await uploadBytes(archivoRef, archivo);
   const url = await getDownloadURL(archivoRef);
+  console.log("✅ Archivo subido. URL:", url); // Debug
   return url;
 };
 
