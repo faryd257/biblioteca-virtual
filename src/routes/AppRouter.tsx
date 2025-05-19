@@ -3,9 +3,10 @@ import { Home } from "../pages/Home/Home";
 import { Login } from "../pages/Login/Login";
 import { Register } from "../pages/Register/Register";
 import { AddBook } from "../pages/AddBook/AddBook";
-import { EditBook } from "../pages/EditBook/EditBook"; // ✅ NUEVO
+import { EditBook } from "../pages/EditBook/EditBook";
 import { Layout } from "./Layout";
 import { PrivateRoute } from "./PrivateRoute";
+import { TestCORS } from "../pages/TestCORS"; // ✅ agregado
 
 const AppRouter = () => {
   return (
@@ -36,6 +37,9 @@ const AppRouter = () => {
             </PrivateRoute>
           }
         />
+
+        {/* ✅ Ruta de testeo de CORS */}
+        <Route path="/test-cors" element={<TestCORS />} />
 
         {/* Rutas públicas */}
         <Route path="/login" element={<Login />} />
