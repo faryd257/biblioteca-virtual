@@ -6,13 +6,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
 
-// ✅ Función reutilizable para subir un archivo
+// ✅ Función reutilizable para subir un archivo al raíz del bucket
 const subirArchivo = async (archivo: File): Promise<string> => {
-  const archivoRef = ref(storage, `libros/${Date.now()}-${archivo.name}`);
-  console.log("📤 Subiendo archivo a:", archivoRef.fullPath); // Debug
+  const archivoRef = ref(storage, `${Date.now()}-${archivo.name}`); // Subida a raíz
+  console.log("📤 Subiendo archivo a:", archivoRef.fullPath);
   await uploadBytes(archivoRef, archivo);
   const url = await getDownloadURL(archivoRef);
-  console.log("✅ Archivo subido. URL:", url); // Debug
+  console.log("✅ Archivo subido. URL:", url);
   return url;
 };
 

@@ -4,6 +4,16 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../firebase/FirebaseConfig";
 
+// ✅ Función reutilizable igual que en AddBook
+const subirArchivo = async (archivo: File): Promise<string> => {
+  const archivoRef = ref(storage, `${Date.now()}-${archivo.name}`);
+  console.log("📤 Subiendo archivo a:", archivoRef.fullPath);
+  await uploadBytes(archivoRef, archivo);
+  const url = await getDownloadURL(archivoRef);
+  console.log("✅ Archivo subido. URL:", url);
+  return url;
+};
+
 const EditBook = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -59,12 +69,7 @@ const EditBook = () => {
     let archivoFinalURL = formData.archivoURL;
 
     if (archivoNuevo) {
-      const archivoRef = ref(
-        storage,
-        `libros/${Date.now()}-${archivoNuevo.name}`
-      );
-      await uploadBytes(archivoRef, archivoNuevo);
-      archivoFinalURL = await getDownloadURL(archivoRef);
+      archivoFinalURL = await subirArchivo(archivoNuevo);
     }
 
     const docRef = doc(db, "libros", id);
