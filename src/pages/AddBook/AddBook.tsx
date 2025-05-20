@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 // ✅ Función reutilizable para subir un archivo al raíz del bucket
 const subirArchivo = async (archivo: File): Promise<string> => {
-  const archivoRef = ref(storage, `${Date.now()}-${archivo.name}`); // Subida a raíz
+  const archivoRef = ref(storage, `${Date.now()}-${archivo.name}`); // <-- corregido
   console.log("📤 Subiendo archivo a:", archivoRef.fullPath);
   await uploadBytes(archivoRef, archivo);
   const url = await getDownloadURL(archivoRef);
